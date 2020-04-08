@@ -5,16 +5,19 @@
 
 {% for barber in barbers %}
   <div class="card">
-    <div class="card-content">
-      <span class="card-title">{{ barber.name }}</span>
-      <p>Breed: {{ barber.breed }}</p>
-      <p>Description: {{ barber.description }}</p>
-      {% if barber.age > 0 %}
+    <a href="{% url 'detail' barber.id%}">
+        <div class="card-content">
+        <span class="card-title">{{ barber.name }}</span>
         <p>Age: {{ barber.age }}</p>
-      {% else %}
-        <p>Age: Kitten</p>
-      {% endif %}
-    </div>
+        <p>Experience: {{ barber.experience }} years</p>
+        {% if barber.experience > 5 %}
+            <p>-Senior</p>
+        {% else %}
+            <p>-Junior</p>
+        {% endif %}
+        <p>Description: {{ barber.description }}</p>
+        </div>
+    </a>
   </div>
 {% endfor %}
 
