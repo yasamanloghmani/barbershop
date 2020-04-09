@@ -5,4 +5,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('barbers/', views.barbers_index, name='index'),
     path('barbers/<int:barber_id>', views.barbers_detail, name='detail'),
+    path('barbers/create/', views.BarberCreate.as_view(), name='barbers-create'),
+    path('barbers/<int:barber_id>/update', views.BarberUpdate.as_view(), name='barbers_update'),
+    path('barbers/<int:barber_id>/delete', views.BarberDelete.as_view(), name='barbers_delete'),
 ]

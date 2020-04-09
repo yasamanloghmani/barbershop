@@ -10,6 +10,10 @@
     <p> Experience : {{ barber.experience}} years.</p>
     <p>Description: {{ barber.description }}</p>
   </div>
+  <div class="card-action">
+    <a href="{% url 'barbers_update' barber.id %}">Edit</a>
+    <a href="{% url 'barbers_delete' barber.id %}">Delete</a>
+  </div>
 </div>
 
 {% endblock %}
