@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Location Detail</h1>
+<div class="row">
+    <div class="col s6 col-offset-3">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">{{ location.name }}</span>
+          <p>Address: {{ location.address }}</p>
+          <p>Phone Number: {{ location.phone }}</p>
+        </div>
+        <div class="card-action">
+          <a href="{% url 'location_update' location.id %}">Edit</a>
+          <a href="{% url 'location_delete' location.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}

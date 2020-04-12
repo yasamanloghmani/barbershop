@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import Barber
+from .models import Barber , Location
 from .forms import ScheduleForm
 # Create your views here.
 from django.http import HttpResponse
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Define the home view
@@ -40,3 +41,20 @@ def add_appointment(request, barber_id):
     new_schedule.save()
   return redirect('detail', barber_id=barber_id)
   
+class Locations(ListView):
+  model = Location
+
+class LocationDetail(DetailView):
+  model = Location
+
+class LocationCreate(CreateView):
+  model = Location
+  fields = '__all__'
+
+class LocationUpdate(UpdateView):
+  model = Location
+  fields = ['name', 'address', 'phone']
+
+class LocationDelete(DeleteView):
+  model = Location
+  success_url = '/locations/'

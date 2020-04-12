@@ -12,11 +12,22 @@ SKILLS = (
     ('C', 'Hair-Color'),
     ('N', 'Nail')
 )
+class Location(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.CharField(max_length=500)
+    phone = models.IntegerField(max_length=10)
+    def __str__(self):
+        return self.name
+    def get_absolute_url(self):
+        return reverse('location_detail', kwargs={'pk': self.id})
+
+
 class Barber(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
     experience = models.IntegerField()
     description = models.TextField(max_length=250)
+    locations = models.ManyToManyField(Location)
     def __str__(self):
         return self.name
     def get_absolute_url(self):

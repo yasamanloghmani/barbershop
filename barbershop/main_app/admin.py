@@ -6,3 +6,4 @@ from .models import *
 
 admin.site.register(Barber)
 admin.site.register(Schedule)
+admin.site.register(Location)
