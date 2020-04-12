@@ -15,5 +15,42 @@
     <a href="{% url 'barbers_delete' barber.id %}">Delete</a>
   </div>
 </div>
-
+<div class="row">
+  <div class="col s6">
+    <form action="{% url 'add_appointment' barber.id %}" method="POST">
+      {% csrf_token %}
+      {{schedule_form.as_p}}
+      <input type="submit" class="btn" value="Make an appointment">
+    </form>
+  </div>
+  <div class="col s6">
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Time</th><th>Skill</th></tr>
+      </thead>
+      <tbody>
+        {% for schedule in barber.schedule_set.all %}
+          <tr>
+            <td>{{schedule.date}}</td>
+            <td>{{schedule.get_time_display}}</td>
+            <td>{{schedule.get_skill_display}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+  var dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+  var selectEl = document.getElementById('id_skill');
+  M.FormSelect.init(selectEl);
+  var selectEl1 = document.getElementById('id_time');
+  M.FormSelect.init(selectEl1);
+</script>
 {% endblock %}

@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Barber
+from .forms import ScheduleForm
 # Create your views here.
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -14,7 +15,8 @@ def barbers_index(request):
 
 def barbers_detail(request, barber_id):
     barber = Barber.objects.get(id=barber_id)
-    return render(request, 'barbers/detail.html', {'barber' : barber})
+    schedule_form = ScheduleForm()
+    return render(request, 'barbers/detail.html', {'barber' : barber, 'schedule_form' : schedule_form})
 
 class BarberCreate(CreateView):
   model = Barber
@@ -29,4 +31,12 @@ class BarberDelete(DeleteView):
   model = Barber
   success_url = '/barbers/'
 
+
+def add_appointment(request, barber_id):
+  form = ScheduleForm(request.POST)
+  if form.is_valid():
+    new_schedule = form.save(commit=False)
+    new_schedule.barber_id = barber_id
+    new_schedule.save()
+  return redirect('detail', barber_id=barber_id)
   
