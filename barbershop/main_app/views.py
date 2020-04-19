@@ -17,7 +17,8 @@ def barbers_index(request):
 def barbers_detail(request, barber_id):
     barber = Barber.objects.get(id=barber_id)
     schedule_form = ScheduleForm()
-    return render(request, 'barbers/detail.html', {'barber' : barber, 'schedule_form' : schedule_form})
+    not_location = Location.objects.exclude(id__in = barber.locations.all().values_list('id'))
+    return render(request, 'barbers/detail.html', {'barber' : barber, 'schedule_form' : schedule_form, 'locations' : not_location})
 
 class BarberCreate(CreateView):
   model = Barber
@@ -58,3 +59,8 @@ class LocationUpdate(UpdateView):
 class LocationDelete(DeleteView):
   model = Location
   success_url = '/locations/'
+
+def new_location(request, barber_id, location_id):
+  Barber.objects.get(id=barber_id).locations.add(location_id)
+  return redirect('detail', barber_id=barber_id)
+
