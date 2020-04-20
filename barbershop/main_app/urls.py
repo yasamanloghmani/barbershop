@@ -15,4 +15,5 @@ urlpatterns = [
     path('locations/<int:pk>/update/',views.LocationUpdate.as_view(), name='location_update'),
     path('locations/<int:pk>/delete/', views.LocationDelete.as_view(), name='location_delete'),
     path('barber/<int:barber_id>/new_location/<int:location_id>', views.new_location, name='new_location'),
+    path('accounts/signup/', views.signup, name='signup'),
 ]

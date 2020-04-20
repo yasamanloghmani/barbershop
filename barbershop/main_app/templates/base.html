@@ -18,10 +18,16 @@
           <li><a href="/" class="left brand-logo">&nbsp;&nbsp;Barber Shop</a></li>
         </ul>
         <ul class="right">
+          {% if user.is_authenticated %}
             <li><a href="{% url 'barbers-create'%}">Add Barber</a></li>
             <li><a href="{% url 'index'%}">View All barbers</a></li>
             <li><a href="{% url 'locations_index'%}">View All Locations</a></li>
             <li><a href="{% url 'location_create'%}">Add location</a></li>
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Log In</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          {% endif %}
         </ul>
       </div>
     </nav>

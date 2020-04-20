@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 # Create your models here.
 TIME = (
     ('M', 'Morning'),
@@ -15,7 +16,7 @@ SKILLS = (
 class Location(models.Model):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=500)
-    phone = models.IntegerField(max_length=10)
+    phone = models.IntegerField()
     def __str__(self):
         return self.name
     def get_absolute_url(self):
@@ -28,6 +29,7 @@ class Barber(models.Model):
     experience = models.IntegerField()
     description = models.TextField(max_length=250)
     locations = models.ManyToManyField(Location)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
     def get_absolute_url(self):
